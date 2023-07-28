@@ -217,8 +217,8 @@ function preventScrollMobileSafari() {
       'paddingRight',
       `${window.innerWidth - document.documentElement.clientWidth}px`
     ),
-    setStyle(document.documentElement, 'overflow', 'hidden'),
-    setStyle(document.body, 'marginTop', `-${scrollY}px`)
+    setStyle(document.documentElement, 'overflow', 'hidden')
+    // setStyle(document.body, 'marginTop', `-${scrollY}px`)
   );
 
   // Scroll to the top. The negative margin on the body will make this appear the same.

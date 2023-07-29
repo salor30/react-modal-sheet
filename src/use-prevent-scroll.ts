@@ -9,6 +9,7 @@ import {
 interface PreventScrollOptions {
   /** Whether the scroll lock is disabled. */
   isDisabled?: boolean;
+  scrollLocked?: boolean;
 }
 
 // @ts-ignore
@@ -37,7 +38,7 @@ let restore: any;
  * shift due to the scrollbars disappearing.
  */
 export function usePreventScroll(options: PreventScrollOptions = {}) {
-  let { isDisabled } = options;
+  let { isDisabled, scrollLocked } = options;
 
   useLayoutEffect(() => {
     if (isDisabled) {
@@ -45,7 +46,7 @@ export function usePreventScroll(options: PreventScrollOptions = {}) {
     }
 
     preventScrollCount++;
-    if (preventScrollCount === 1111111) {
+    if (preventScrollCount === 1111111 || scrollLocked) {
       if (isIOS()) {
         restore = preventScrollMobileSafari();
       } else {

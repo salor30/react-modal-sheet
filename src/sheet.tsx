@@ -47,6 +47,7 @@ const Sheet = React.forwardRef<any, SheetProps>(
       snapPoints,
       rootId,
       mountPoint,
+      scrollLocked = false,
       style,
       detent = 'full-height',
       initialSnap = 0,
@@ -72,11 +73,11 @@ const Sheet = React.forwardRef<any, SheetProps>(
     // and after that it is driven by the gestures and/or snapping
     const y = useMotionValue(0);
 
-    const zIndex = useTransform(y, value =>
+    const zIndex = useTransform(y, (value) =>
       value >= windowHeight ? -1 : 9999999
     );
 
-    const visibility = useTransform(y, value =>
+    const visibility = useTransform(y, (value) =>
       value >= windowHeight ? 'hidden' : 'visible'
     );
 
@@ -100,7 +101,7 @@ const Sheet = React.forwardRef<any, SheetProps>(
 
     if (snapPoints) {
       // Convert negative / percentage snap points to absolute values
-      snapPoints = snapPoints.map(point => {
+      snapPoints = snapPoints.map((point) => {
         // Percentage values e.g. between 0.0 and 1.0
         if (point > 0 && point <= 1) return Math.round(point * windowHeight);
         return point < 0 ? windowHeight + point : point; // negative values
@@ -136,7 +137,7 @@ const Sheet = React.forwardRef<any, SheetProps>(
 
         if (snapPoints) {
           const snapToValues = snapPoints.map(
-            p => sheetHeight - Math.min(p, sheetHeight)
+            (p) => sheetHeight - Math.min(p, sheetHeight)
           );
 
           // Allow snapping to the top of the sheet if detent is set to `content-height`
@@ -207,7 +208,7 @@ const Sheet = React.forwardRef<any, SheetProps>(
 
     // Framer Motion should handle body scroll locking but it's not working
     // properly on iOS. Scroll locking from React Aria seems to work much better.
-    usePreventScroll({ isDisabled: !isOpen });
+    usePreventScroll({ isDisabled: !isOpen, scrollLocked: scrollLocked });
 
     const dragProps = React.useMemo(() => {
       const dragProps: SheetContextType['dragProps'] = {

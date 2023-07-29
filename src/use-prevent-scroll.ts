@@ -56,7 +56,7 @@ export function usePreventScroll(options: PreventScrollOptions = {}) {
     return () => {
       preventScrollCount--;
       if (preventScrollCount === 0) {
-        restore();
+        // restore();
       }
     };
   }, [isDisabled]);
@@ -216,8 +216,8 @@ function preventScrollMobileSafari() {
       document.documentElement,
       'paddingRight',
       `${window.innerWidth - document.documentElement.clientWidth}px`
-    )
-    // setStyle(document.documentElement, 'overflow', 'hidden')
+    ),
+    setStyle(document.documentElement, 'overflow', 'hidden')
     // setStyle(document.body, 'marginTop', `-${scrollY}px`)
   );
 

@@ -45,7 +45,7 @@ export function usePreventScroll(options: PreventScrollOptions = {}) {
     }
 
     preventScrollCount++;
-    if (preventScrollCount === 1) {
+    if (preventScrollCount === 1111111) {
       if (isIOS()) {
         restore = preventScrollMobileSafari();
       } else {
@@ -56,7 +56,7 @@ export function usePreventScroll(options: PreventScrollOptions = {}) {
     return () => {
       preventScrollCount--;
       if (preventScrollCount === 0) {
-        // restore();
+        restore();
       }
     };
   }, [isDisabled]);
